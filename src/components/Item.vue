@@ -1,12 +1,6 @@
 <script>
 export default {
-    data() {
-        return {
-            img: 'https://picsum.photos/200/300',
-            name: 'Item name',
-            price: '$100',
-        }
-    }
+    props: ['img', 'name', 'price']
 }
 </script>
 
