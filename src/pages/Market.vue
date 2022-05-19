@@ -11,7 +11,7 @@ export default {
     }, 
 
     created() {
-        const resp = fetch('http://192.168.43.25:8080/asset/1', {
+        resp = fetch('http://192.168.1.106:8080/asset/1', {
             method: 'GET',
             mode: 'cors'
         }).then(resp => resp.json()).then(data => {
