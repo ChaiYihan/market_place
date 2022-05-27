@@ -11,9 +11,10 @@ export default {
     }, 
 
     created() {
-        resp = fetch('http://192.168.1.106:8080/asset/1', {
+        const url = 'http://127.0.0.1:8888/asset/batch/1.txt'
+        const resp = fetch(url, {
             method: 'GET',
-            mode: 'cors'
+            //mode: 'cors'
         }).then(resp => resp.json()).then(data => {
             this.items.push(data);
         });
