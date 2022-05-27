@@ -1,13 +1,13 @@
 <script>
 export default {
-    props: ['img', 'name', 'price']
+    props: ['img', 'marketName', 'value']
 }
 </script>
 
 <template>
     <div>
         <img :src="img" alt="test img">
-        <div>{{ name }}</div>
-        <div>{{ price }}</div>
+        <div>{{ marketName }}</div>
+        <div>￥{{ value }}</div>
     </div>
 </template>
