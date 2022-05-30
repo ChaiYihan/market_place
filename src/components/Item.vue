@@ -6,7 +6,7 @@ export default {
 
 <template>
     <div>
-        <img :src="img" alt="test img">
+        <img :src="img" alt="test img" class="h-24 border-solid border-1 m-auto">
         <div>{{ marketName }}</div>
         <div>￥{{ value }}</div>
     </div>

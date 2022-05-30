@@ -7,6 +7,7 @@ export default {
             items: [],
             pages: [],
             showPage: 0,
+            totPage: 0,
         }
     },
     components: {
@@ -23,7 +24,8 @@ export default {
             this.items = []
             this.pages = []
             this.items = data.assets.results;
-            for(let page=1; page<=data.pages; ++page){
+            this.totPage = data.pages;
+            for(let page=1; page<=this.totPage; ++page){
                 var page1 = {
                     "num": page,
                 }
@@ -56,15 +58,17 @@ export default {
 </script>
 
 <template>
-    <div class="float-none w-full h-96 border-solid border-2 bg-gray-300">
-        <div v-for="item in items" :key="item.id" class="w-48 h-44 float-left bg-white m-1">
-            <Item :img="item.uri" :marketName="item.marketName" :value="item.value" />
+    <div class="h-screen">
+    <div class="m-auto float-none w-5/6 h-3/4 border-solid border-2 bg-gray-300">
+            <div v-for="item in items" :key="item.id" class="m-2 p-2 text-center w-48 h-44 float-left bg-white m-1">
+                <Item :img="item.uri" :marketName="item.marketName" :value="item.value" />
+            </div>
         </div>
-    </div>
-    <div class="m-6">
-        <div v-for="page in pages" :key="page.num" class="border-2 borler-solid w-12 h-12 float-left">
-            <!-- <PageButton :num="page.num" /> -->
-            <button v-on:click="changePage(showPage=page.num)">{{ page.num }}</button>
+        <div class="m-auto p-6 w-5/6 h-12">
+            <p v-for="page in pages" :key="page.num" class="text-center w-12 h-12 float-left">
+                <!-- <PageButton :num="page.num" /> -->
+                <a v-on:click="changePage(showPage=page.num)">{{ page.num }}</a>
+            </p>
         </div>
     </div>
 </template>
