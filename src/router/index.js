@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "/src/pages/Home.vue";
 import About from "/src/pages/About.vue";
 import Market from '/src/pages/Market.vue';
+import Rank from '/src/pages/Rank.vue';
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: "/market",
     name: "Market",
     component: Market,
+  },
+  {
+    path: "/rank",
+    name: "Rank",
+    component: Rank,
   },
 ];
 const router = createRouter({
