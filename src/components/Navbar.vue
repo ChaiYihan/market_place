@@ -1,11 +1,17 @@
 <script setup>
 import {defineProps} from 'vue'
 import Button from './forms/Button.vue';
+import Login from './Login.vue'
 
 const props = defineProps({
   title: {type: String, required: true},
   links: {type: Array, required: true}
 });
+
+var log = true;
+var text = '';
+var logStatu = 'not logged in';
+
 </script>
 
 <template>
@@ -24,7 +30,11 @@ const props = defineProps({
       </ul>
     </div>
     <div>
-      <Button text="Login"/>
+      <!-- <Button text="Login"/> -->
+      <!-- <div class="px-6 py-2 text-sm font-semibold uppercase rounded-sm text-white transition bg-gradient-to-r from-purple-500 to-blue-500">
+        Login
+      </div> -->
+      <Login></Login>
     </div>
   </nav>
 </div>

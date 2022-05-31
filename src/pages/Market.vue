@@ -41,8 +41,8 @@ export default {
                 method: 'GET',
                 mode: 'cors'
             }).then(resp => resp.json()).then(data => {
-                this.items = []
-                this.pages = []
+                this.items = [];
+                this.pages = [];
                 this.items = data.assets.results;
                 for(let page=1; page<=data.pages; ++page){
                     var page1 = {
@@ -50,7 +50,30 @@ export default {
                     }
                     this.pages.push(page1);
                 }
-            });
+                return 'send';
+            }).then((val) => {
+                console.log(val);
+                return {
+                    "username" : 'cyh',
+                    "password" : '123456',
+                };
+            }).then(data =>  {
+                return fetch("http://192.168.1.112:8081/user/check",{
+                    body: JSON.stringify(data), // must match 'Content-Type' header
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, same-origin, *omit
+                    headers: {
+                    'user-agent': 'Mozilla/4.0 MDN Example',
+                    'content-type': 'application/json'
+                    },
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    mode: 'cors', // no-cors, cors, *same-origin
+                    redirect: 'follow', // manual, *follow, error
+                    referrer: 'no-referrer', // *client, no-referrer
+                })
+            }).then(response => response.json()).then(data => {
+                console.log(data);
+            })
         }
     }
 
