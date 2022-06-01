@@ -1,6 +1,7 @@
 <script>
 import Item from '../components/Item.vue'
 import PageButton from '../components/PageButton.vue'
+import { mapState } from 'vuex'
 export default {
     data() {
         return {
@@ -8,15 +9,19 @@ export default {
             pages: [],
             showPage: 0,
             totPage: 0,
+            assetUrl: 'http://192.168.43.191:8081'
         }
     },
     components: {
         Item,
         PageButton,
     }, 
-
+    computed :{
+        ...mapState(['dbIP'])
+    },
     created() {
-        const url = 'http://192.168.1.112:8081/asset/batch/0';
+        this.assetUrl = this.dbIP;
+        const url = this.assetUrl+'/asset/batch/0';
         const resp = fetch(url, {
             method: 'GET',
             mode: 'cors'
@@ -36,7 +41,7 @@ export default {
 
     methods: {
         changePage: function(){
-            const url = 'http://192.168.1.112:8081/asset/batch/'+(this.showPage-1);
+            const url = this.assetUrl+'/asset/batch/'+(this.showPage-1);
             const resp = fetch(url, {
                 method: 'GET',
                 mode: 'cors'

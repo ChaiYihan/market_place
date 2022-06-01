@@ -1,5 +1,6 @@
 <script>
 import Rank from '../components/Rank.vue'
+import { mapState } from 'vuex'
 export default {
     data() {
         return {
@@ -7,14 +8,18 @@ export default {
             pages: [],
             showPage: 0,
             totPage: 0,
+            rankUrl: 'http://192.168.43.191:8081',
         }
     },
     components: {
         Rank,
     }, 
-
+    computed :{
+        ...mapState(['dbIP'])
+    },
     created() {
-        const url = 'http://192.168.1.112:8081/user/rank/0';
+        this.rankUrl = this.dbIP;
+        const url = this.rankUrl+'/user/rank/0';
         const resp = fetch(url, {
             method: 'GET',
             mode: 'cors'
@@ -51,7 +56,7 @@ export default {
 
     methods: {
         changePage: function(){
-            const url = 'http://192.168.1.112:8081/user/rank/'+(this.showPage-1);
+            const url = this.rankUrl+'/user/rank/'+(this.showPage-1);
             const resp = fetch(url, {
                 method: 'GET',
                 mode: 'cors'

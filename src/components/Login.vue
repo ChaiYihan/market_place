@@ -1,17 +1,24 @@
 <script>
 import Button from './forms/Button.vue'
+import { mapState } from 'vuex';
 
 export default {
+    computed: {
+        ...mapState(['userName', 'isLoggedIn', 'dbIP'])
+    },
     data(){
         return{
             logStatu: 'not logged in',
             username: '',
             password: '',
             logging: 0,
-            checkurl: 'http://192.168.1.112:8081/user/check',
-            regisurl: 'http://192.168.1.112:8081/register',
-            constLogin: 'Login',
+            checkurl: '',
+            regisurl: '',
         }
+    },
+    created() {
+        this.checkurl = this.dbIP+'/user/check';
+        this.regisurl = this.dbIP+'/register';
     },
     components: {
         Button,
@@ -45,6 +52,8 @@ export default {
                     console.log('log successfully,', this.username);
                     this.alterLogin();
                     this.logStatu = 'logged in';
+
+                    this.$store.dispatch('login', this.username)
                 }
             });
         },
@@ -77,6 +86,7 @@ export default {
         Logout: function(){
             this.logStatu = 'not logged in';
             this.alterLogin();
+            this.$store.dispatch('logout');
         },
     }
 }
