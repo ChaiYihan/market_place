@@ -12,7 +12,18 @@ const props = defineProps({
 var log = true;
 var text = '';
 var logStatu = 'not logged in';
+</script>
 
+<script>
+import { mapState } from 'vuex';
+export default {
+    computed: {
+      ...mapState(['messages'])
+    },
+    created() {
+      this.$store.dispatch('shiftMessage');
+    }
+}
 </script>
 
 <template>
@@ -31,10 +42,6 @@ var logStatu = 'not logged in';
       </ul>
     </div>
     <div>
-      <!-- <Button text="Login"/> -->
-      <!-- <div class="px-6 py-2 text-sm font-semibold uppercase rounded-sm text-white transition bg-gradient-to-r from-purple-500 to-blue-500">
-        Login
-      </div> -->
       <Login></Login>
     </div>
     <Notice></Notice>
