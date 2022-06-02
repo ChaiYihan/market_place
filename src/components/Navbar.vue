@@ -2,6 +2,7 @@
 import {defineProps} from 'vue'
 import Button from './forms/Button.vue';
 import Login from './Login.vue'
+import Notice from './Notice.vue'
 
 const props = defineProps({
   title: {type: String, required: true},
@@ -36,6 +37,7 @@ var logStatu = 'not logged in';
       </div> -->
       <Login></Login>
     </div>
+    <Notice></Notice>
   </nav>
 </div>
 </template>

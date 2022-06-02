@@ -66,7 +66,7 @@ export default {
     <div class="h-screen">
     <div class="m-auto float-none w-5/6 h-3/4 border-solid border-2 bg-gray-300">
             <div v-for="item in items" :key="item.id" class="m-2 p-2 text-center w-48 h-44 float-left bg-white m-1">
-                <Item :img="item.uri" :marketName="item.marketName" :value="item.value" />
+                <Item :id="item.id" :img="item.uri" :marketName="item.marketName" :value="item.value" />
             </div>
         </div>
         <div class="m-auto p-6 w-5/6 h-12">
