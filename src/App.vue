@@ -21,7 +21,7 @@ computed({
   <div class="pt-20">
     <router-view />
   </div>
-  <button @click="this.$store.dispatch('pushMessage', 'hello, world')">Push</button>
+  <button @click="this.$store.dispatch('pushMessage', 'hello, world')">Test</button>
   <div>{{ this.messages }}</div>
 </template>
 

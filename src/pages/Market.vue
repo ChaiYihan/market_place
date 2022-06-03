@@ -17,7 +17,7 @@ export default {
         PageButton,
     }, 
     computed :{
-        ...mapState(['dbIP'])
+        ...mapState(['dbIP', 'isLoggedIn', 'balance'])
     },
     created() {
         this.assetUrl = this.dbIP;
@@ -41,6 +41,7 @@ export default {
 
     methods: {
         changePage: function(){
+            // console.log(this.balance);
             const url = this.assetUrl+'/asset/batch/'+(this.showPage-1);
             const resp = fetch(url, {
                 method: 'GET',
@@ -64,9 +65,10 @@ export default {
 
 <template>
     <div class="h-screen">
-    <div class="m-auto float-none w-5/6 h-3/4 border-solid border-2 bg-gray-300">
+        <div class="m-auto float-none w-5/6 h-3/4 border-solid border-2 bg-gray-300">
+            <div v-if="this.isLoggedIn" class="h-10 border-white rounded-lg m-2">sanity: {{this.balance}}</div>
             <div v-for="item in items" :key="item.id" class="m-2 p-2 text-center w-48 h-44 float-left bg-white m-1">
-                <Item :id="item.id" :img="item.uri" :marketName="item.marketName" :value="item.value" />
+                <Item :ownerId="item.ownerId" :assetid="item.id" :img="item.uri" :marketName="item.marketName" :value="item.value" />
             </div>
         </div>
         <div class="m-auto p-6 w-5/6 h-12">

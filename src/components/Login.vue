@@ -4,7 +4,7 @@ import { mapState } from 'vuex';
 
 export default {
     computed: {
-        ...mapState(['userName', 'isLoggedIn', 'dbIP'])
+        ...mapState(['userName', 'isLoggedIn', 'dbIP', 'id', 'exp', 'balance'])
     },
     data(){
         return{
@@ -14,10 +14,11 @@ export default {
             logging: 0,
             checkurl: '',
             regisurl: '',
+            message: '',
         }
     },
     created() {
-        this.checkurl = this.dbIP+'/user/check';
+        this.checkurl = this.dbIP+'/login';
         this.regisurl = this.dbIP+'/register';
     },
     components: {
@@ -47,13 +48,14 @@ export default {
                 referrer: 'no-referrer', // *client, no-referrer
             }).then(response => response.json()).then(res => {
                 console.log(res);
-                if(res.res==='True'){
-                    // this.logStatu = 'logged in';
-                    console.log('log successfully,', this.username);
+                if(res.statue==true){
+                    // console.log('log successfully,', this.username);
                     this.alterLogin();
                     this.logStatu = 'logged in';
-
-                    this.$store.dispatch('login', this.username)
+                    this.message = res.message;
+                    this.$store.dispatch('login', res);
+                }else{
+                    this.$store.dispatch('pushMessage', 'Login failed.');
                 }
             });
         },
@@ -94,14 +96,14 @@ export default {
 
 <template>
     <div v-on:click="alterLogin()">
-        <div v-if=" logStatu === 'not logged in' ">
+        <div v-if=" this.isLoggedIn === false ">
             <Button :text="'login'"></Button>
         </div>
         <div v-else>
-            <Button :text="this.username" ></Button>
+            <Button :text="this.userName" ></Button>
         </div>
     </div>
-    <div v-if="logging === 1 && logStatu === 'not logged in' " class="fixed top-1/2 left-1/2 -mx-48 -my-48 w-96 h-60 border-solid border-8 rounded-lg border-blue-300 bg-blue-100">
+    <div v-if="logging === 1 && this.isLoggedIn === false " class="fixed top-1/2 left-1/2 -mx-48 -my-48 w-96 h-60 border-solid border-8 rounded-lg border-blue-300 bg-blue-100">
         <div class="border-none border-2 border-black w-56 mx-auto my-8">
             nickname: <input id="nickname" type="text" v-on:change="Update()" class="w-32" /><br/><br/>
             passowrd: <input id='password' type="password" v-on:change="Update()" class="w-32" /><br/>
@@ -111,8 +113,25 @@ export default {
             <Button :text="'register'" v-on:click="Register()" class="mx-48 -my-20"></Button>
         </div>
     </div>
-    <div v-if="logging === 1 && logStatu === 'logged in' " class="fixed top-1/2 left-1/2 -mx-48 -my-48 w-96 h-60 border-solid border-8 rounded-lg border-blue-300 bg-blue-100" >
-        <p>确定登出？</p>
+    <div v-if="logging === 1 && this.isLoggedIn === true " class="text-center fixed top-1/2 left-1/2 -mx-48 -my-48 w-96 h-60 border-solid border-8 rounded-lg border-blue-300 bg-blue-100" >
+        <table class="m-auto w-48 my-6">
+            <tr>
+                <th class="font-mono text-lg">nickname</th>
+                <th class="text-blue-600">{{this.userName}}</th>
+            </tr>
+            <tr>
+                <th class="font-mono text-lg">id</th>
+                <th class="text-blue-600">{{this.id}}</th>
+            </tr>
+            <tr>
+                <th class="font-mono text-lg">exp</th>
+                <th class="text-blue-600">{{this.exp}}</th>
+            </tr>
+            <tr>
+                <th class="font-mono text-lg">sanity</th>
+                <th class="text-blue-600">{{this.balance}}</th>
+            </tr>
+        </table>
         <Button :text="'log out'" v-on:click="Logout()" ></Button>
     </div>
 </template>
