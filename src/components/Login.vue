@@ -48,14 +48,14 @@ export default {
                 referrer: 'no-referrer', // *client, no-referrer
             }).then(response => response.json()).then(res => {
                 console.log(res);
-                if(res.statue==true){
+                if(res.res==true){
                     // console.log('log successfully,', this.username);
                     this.alterLogin();
                     this.logStatu = 'logged in';
-                    this.message = res.message;
+                    this.message = res.msg;
                     this.$store.dispatch('login', res);
                 }else{
-                    this.$store.dispatch('pushMessage', 'Login failed.');
+                    this.$store.dispatch('pushMessage', 'Login failed, '+res.msg);
                 }
             });
         },
@@ -79,6 +79,11 @@ export default {
                 referrer: 'no-referrer', // *client, no-referrer
             }).then(response => response.json()).then(res => {
                 console.log(res);
+                if(res.res==true){
+                    this.$store.dispatch('pushMessage', 'Registe success!');
+                }else{
+                    this.$store.dispatch('pushMessage', 'Registe failed, '+res.msg);
+                }
             });
         },
         Update: function(){
