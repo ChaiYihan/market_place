@@ -114,8 +114,8 @@ export default {
             passowrd: <input id='password' type="password" v-on:change="Update()" class="w-32" /><br/>
         </div>
         <div>
-            <Button :text="'login'" v-on:click="Login()" class="mx-24 my-12"></Button>
-            <Button :text="'register'" v-on:click="Register()" class="mx-48 -my-20"></Button>
+            <Button :text="'login'" v-on:click="Login()" class="absolute top-36 left-16"></Button>
+            <Button :text="'register'" v-on:click="Register()" class="absolute top-36 right-16"></Button>
         </div>
     </div>
     <div v-if="logging === 1 && this.isLoggedIn === true " class="text-center fixed top-1/2 left-1/2 -mx-48 -my-48 w-96 h-60 border-solid border-8 rounded-lg border-blue-300 bg-blue-100" >
